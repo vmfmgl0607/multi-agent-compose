@@ -1,0 +1,180 @@
+schema: "paperclip/v1"
+agents:
+  agent-optimizer:
+    role: "general"
+    icon: "wand"
+    capabilities: "Analyzes agent run data and performance metrics, audits existing agent instructions and skill configurations, designs and writes optimized AGENTS.md instructions for each role, configures appropriate skills for agents, ensures cross-agent consistency and quality of agent configurations."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  business-support-manager:
+    role: "pm"
+    icon: "cog"
+    capabilities: "Manages business support department. Oversees workflow optimization, documentation coordination, strategic analysis coordination, and agent optimization management. Manages Strategic Analyst, Documentation Specialist, and Agent Optimizer."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  ceo:
+    role: "ceo"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-opus-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+    permissions:
+      canCreateAgents: true
+  compliance-checker:
+    role: "qa"
+    icon: "lock"
+    capabilities: "Evaluates regulatory and standards compliance. Maps targets against GDPR, ISO 27001, SOC 2, PCI DSS, HIPAA, and industry regulations. Identifies compliance gaps, required evidence, and remediation actions. Uses Chain of Draft (CoD) reasoning. Cites specific articles and control numbers."
+    adapter:
+      config:
+        model: "claude-haiku-4-5-20251001"
+      type: "claude_local"
+  cto:
+    role: "cto"
+    icon: "crown"
+    capabilities: "Leads AI security research team. Owns technical strategy for collecting, verifying, and analyzing AI technology security information (LLM, MCP, AI agents, RAG, etc.). Coordinates research workflows, builds and manages technical team, ensures quality of security analysis and documentation output."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  debugging-specialist:
+    role: "qa"
+    icon: "bug"
+    capabilities: "Analyzes errors, bugs, and infinite loops in processes. Reads logs, traces execution, identifies root causes, and produces detailed diagnostic reports. Specializes in debugging complex technical issues and providing actionable insights."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  defensive-analyst:
+    role: "qa"
+    icon: "shield"
+    capabilities: "Evaluates security posture from defender's perspective. Assesses existing controls, identifies defense gaps, designs concrete mitigations with effort estimates. Evaluates detection and response readiness. Uses Chain of Draft (CoD) reasoning. Reports only defensive assessments and actionable recommendations."
+    adapter:
+      config:
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+  documentation-specialist:
+    role: "general"
+    icon: "file-code"
+    capabilities: "Formats research findings, maintains documentation standards, organizes content, ensures quality and consistency in security reports and knowledge base"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  offensive-analyst:
+    role: "qa"
+    icon: "target"
+    capabilities: "Analyzes targets from attacker's perspective. Identifies attack surfaces, constructs exploit paths, profiles threat actors, and assesses potential impact. Uses Chain of Draft (CoD) reasoning for efficient analysis. Reports only offensive findings with concrete exploit scenarios."
+    adapter:
+      config:
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+  research-lead:
+    role: "researcher"
+    icon: "telescope"
+    capabilities: "Monitors AI security developments, collects AI tech news, tracks vulnerabilities and emerging threats in AI systems, maintains research knowledge base"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  security-analyst:
+    role: "qa"
+    icon: "shield"
+    capabilities: "Analyzes security vulnerabilities, assesses threats, evaluates AI system security posture, produces security analysis reports"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  sre:
+    role: "devops"
+    icon: "wrench"
+    capabilities: "Uses error analysis feedback to improve processes, implement safeguards, update guidelines, and prevent issues from recurring. Focuses on process optimization, reliability engineering, and building resilient systems. Works with debugging feedback to create long-term solutions."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  strategic-analyst:
+    role: "researcher"
+    icon: "telescope"
+    capabilities: "Analyzes proposed ideas and initiatives for feasibility. Researches market context, assesses technical viability, evaluates resource requirements, identifies risks, and delivers structured recommendations with actionable solutions. Communicates in Korean."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-opus-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+projects:
+  onboarding:
+    color: "#6366f1"
+    status: "in_progress"
+routines:
+  weekly-ai-security-content-collection:
+    priority: "high"
+    triggers:
+      -
+        kind: "schedule"
+        cronExpression: "0 9 * * 1"
+        label: "Weekly Monday 9 AM UTC"
+        timezone: "UTC"
+      -
+        kind: "api"
+        label: "Manual trigger for testing"
+sidebar:
+  agents:
+    - "ceo"
+    - "business-support-manager"
+    - "cto"
+    - "agent-optimizer"
+    - "documentation-specialist"
+    - "strategic-analyst"
+    - "debugging-specialist"
+    - "research-lead"
+    - "security-analyst"
+    - "sre"
+    - "compliance-checker"
+    - "defensive-analyst"
+    - "offensive-analyst"
+  projects:
+    - "onboarding"

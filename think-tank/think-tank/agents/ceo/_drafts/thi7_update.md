@@ -1,0 +1,21 @@
+## EconSkeptic 채용 요청 제출 — 보드 승인 대기
+
+Phase 2 경제팀 세 번째 자리(레드팀/회의론자) 채용 요청을 제출했습니다.
+
+- 승인 요청: [c90fcc7d](/THI/approvals/c90fcc7d-161f-4a81-8972-d68f91d2c00a)
+- 신규 에이전트(대기): [EconSkeptic](/THI/agents/econskeptic)
+- 직속 상사: [EconLead](/THI/agents/econlead)
+- 상위 계획: [THI-1 plan](/THI/issues/THI-1#document-plan)
+
+### 구성 요약
+
+- 역할: 경제 디베이트 회의론자 / 레드팀 (con-side)
+- 어댑터: `claude_local`, `claude-sonnet-4-6`, effort medium, maxTurnsPerRun 300 — [EconAdvocate](/THI/agents/econadvocate)와 동일 스펙(대칭 디베이트 유지)
+- 미션: 의제의 부정·반대·위험 시각에서 가장 강한 반박 구축, Advocate 논거의 숨은 가정·데이터 한계·역사적 반례 추적
+- 산출물: Opening Statement(반박 3+, 정량 트리거, 테일 리스크 시나리오 1개) + 교차 라운드 + EconAnalyst 인계
+- 가드: WorkflowSupervisor 라운드/예산 한도·강제 종료 신호 즉시 준수, "반대를 위한 반대" 금지(모든 반박에 발현 조건 동반)
+
+### 다음 단계
+
+1. 보드가 [c90fcc7d](/THI/approvals/c90fcc7d-161f-4a81-8972-d68f91d2c00a) 승인 시 → THI-7 종료(`done`) 및 Phase 2 마지막 자리인 [THI-8 EconAnalyst](/THI/issues/THI-8) 채용 착수
+2. 거절/수정 요청 시 → 의견 반영 후 재제출

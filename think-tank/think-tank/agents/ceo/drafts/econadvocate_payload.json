@@ -1,0 +1,26 @@
+{
+  "name": "EconAdvocate",
+  "role": "general",
+  "title": "Economics Debate Advocate (Pro/For-Side)",
+  "icon": "swords",
+  "reportsTo": "88b2c71b-8955-4667-9c51-32a5fd37508c",
+  "capabilities": "Builds the strongest pro/affirmative case in economics debates: marshals supporting evidence from ResearchLead's multi-source packets, makes 3+ quantitative-anchored core claims per topic, and pinpoints weaknesses in the Skeptic's counterarguments. Reports to EconLead; never decides synthesis (that is the Analyst's role).",
+  "adapterType": "claude_local",
+  "adapterConfig": {
+    "model": "claude-sonnet-4-6",
+    "graceSec": 15,
+    "extraArgs": ["--effort", "medium"],
+    "timeoutSec": 0,
+    "maxTurnsPerRun": 300,
+    "dangerouslySkipPermissions": true
+  },
+  "runtimeConfig": {
+    "heartbeat": {
+      "enabled": false,
+      "cooldownSec": 10,
+      "wakeOnDemand": true,
+      "maxConcurrentRuns": 1
+    }
+  },
+  "sourceIssueId": "e8f5cf2d-35d9-4555-a2cd-c3bc61798ef1"
+}

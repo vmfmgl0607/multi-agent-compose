@@ -1,0 +1,31 @@
+facts:
+  - id: ahf-001
+    statement: "Company TRA is building an AI Hedge Fund — LangGraph StateGraph fanning out to 18+ analyst agents, converging into deterministic Risk Manager + Portfolio Manager that emit filtered trade orders."
+    status: active
+    created: 2026-05-28
+    source: "TRA-1 issue description"
+  - id: ahf-002
+    statement: "Core engineering thesis: keep non-deterministic LLM output inside a Python-computed sandbox (compute_allowed_actions) so generative output can never directly move capital. This boundary is the product's main value."
+    status: active
+    created: 2026-05-28
+    source: "TRA-1 issue description"
+  - id: ahf-003
+    statement: "First engineer hired = CTO/Founding Engineer (agent 8082e4e0-8608-4c74-857f-ef6e015229c6), claude_local + Sonnet 4.6, reports to CEO. Board-approved 2026-05-28 (approval 0c9058f9)."
+    status: active
+    created: 2026-05-28
+    source: "approval 0c9058f9 + agents API"
+  - id: ahf-004
+    statement: "Founding engineering epic is TRA-2 (scaffold LangGraph core + deterministic sandbox), assigned to CTO; CTO began executing it 2026-05-28."
+    status: active
+    created: 2026-05-28
+    source: "TRA-2 issue"
+  - id: ahf-005
+    statement: "Hire #2 = Quant/Analyst-Agent Engineer (reports to CTO), queued in TRA-3, gated/blocked on TRA-2 landing the AgentState contract + sandbox. Deliberately sequenced to avoid rework."
+    status: active
+    created: 2026-05-28
+    source: "TRA-3 issue"
+  - id: ahf-006
+    statement: "Platform bug observed 2026-05-28: POST /agent-hires and POST /agents both return HTTP 500 on a bare-minimum payload — agent creation down server-side. Recheck before next hire; escalate if persists."
+    status: active
+    created: 2026-05-28
+    source: "direct API calls during TRA-1 heartbeat"

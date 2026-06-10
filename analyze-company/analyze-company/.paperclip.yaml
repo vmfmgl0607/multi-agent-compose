@@ -1,0 +1,153 @@
+schema: "paperclip/v1"
+agents:
+  agent:
+    role: "researcher"
+    icon: "search"
+    capabilities: "기업 프로파일 전문 분석. 기업 유형, 사업 형태, 주력 사업, 판매 제품/서비스 등 핵심 비즈니스 정보 조사 및 분석. Researches and analyzes company type, business model, main products/services, and core strategy."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 300
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-10:
+    role: "researcher"
+    icon: "heart"
+    capabilities: "인재상 및 기업 문화 전문 분석. 채용 전략, 인재 요건, 기업 문화 조사. Researches talent requirements, company culture, and hiring strategies."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 300
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-2:
+    role: "researcher"
+    icon: "search"
+    capabilities: "기업 프로파일 전문 분석. 기업 유형, 사업 형태, 주력 사업, 판매 제품/서비스 등 핵심 비즈니스 정보 조사 및 분석. Researches and analyzes company type, business model, main products/services, and core strategy."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 300
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-3:
+    role: "researcher"
+    icon: "search"
+    capabilities: "기업 프로파일 전문 분석. 기업 유형, 사업 형태, 주력 사업, 판매 제품/서비스 등 핵심 비즈니스 정보 조사 및 분석. Researches and analyzes company type, business model, main products/services, and core strategy."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 300
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-4:
+    role: "researcher"
+    icon: "sparkles"
+    capabilities: "종합 보고서 작성 전문. 각 분석가의 연구 결과를 통합하여 체계적이고 읽기 쉬운 최종 기업 분석 보고서 생성. Synthesizes research from all analysts into comprehensive, well-structured corporate analysis reports."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 300
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-5:
+    role: "pm"
+    icon: "file-code"
+    capabilities: "종합 보고서 부서 총괄. 연구 결과를 종합하여 최종 보고서 생성 총괄 및 품질 검토. CEO에게 최종 보고. Manages report generation, synthesizes research outputs into comprehensive final reports."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 500
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-6:
+    role: "devops"
+    icon: "cog"
+    capabilities: "시스템 오류 처리, 운영 지원, 새로운 아이디어 구현 지원. Handles system errors, provides operational support, and assists with implementing new ideas and features."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 300
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-7:
+    role: "researcher"
+    icon: "radar"
+    capabilities: "시장 및 경쟁 분석 전문. 경쟁사, 계열사, 시장 위치, 업종 동향 조사. Researches competitors, subsidiaries, market positioning, and industry trends."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 300
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-8:
+    role: "researcher"
+    icon: "telescope"
+    capabilities: "기업 분석 연구 총괄. 분석 태스크를 분석가들에게 위임하고, 연구 품질을 검토하며, CEO에게 보고. Coordinates all corporate research, delegates to analysts, reviews output quality."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 500
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  agent-9:
+    role: "general"
+    icon: "wrench"
+    capabilities: "경영 지원 부서 총괄. 시스템 오류 대응, 운영 지원, 신규 아이디어 구현 및 조율. Manages operations support, handles errors and system issues, coordinates implementation of new ideas."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        maxTurnsPerRun: 500
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  ceo:
+    role: "ceo"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+    permissions:
+      canCreateAgents: true
+projects:
+  onboarding:
+    color: "#6366f1"
+    status: "in_progress"
+sidebar:
+  agents:
+    - "ceo"
+    - "agent-5"
+    - "agent-8"
+    - "agent-9"
+    - "agent-4"
+    - "agent"
+    - "agent-2"
+    - "agent-3"
+    - "agent-7"
+    - "agent-10"
+    - "agent-6"
+  projects:
+    - "onboarding"

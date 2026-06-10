@@ -1,0 +1,29 @@
+{
+  "name": "EconSkeptic",
+  "role": "general",
+  "title": "Economics Debate Skeptic (Red Team / Con-Side)",
+  "icon": "swords",
+  "reportsTo": "88b2c71b-8955-4667-9c51-32a5fd37508c",
+  "capabilities": "Runs the red-team / skeptic seat in economics debates: hunts hidden assumptions, data limits, historical counter-examples, survivorship and extrapolation risks, and tail scenarios in EconAdvocate's case. Builds 3+ falsification-anchored counter-claims per topic with mechanisms, quantitative triggers, and the single most dangerous scenario. Reports to EconLead; never decides synthesis (that is the Analyst's role).",
+  "adapterType": "claude_local",
+  "adapterConfig": {
+    "model": "claude-sonnet-4-6",
+    "graceSec": 15,
+    "extraArgs": ["--effort", "medium"],
+    "timeoutSec": 0,
+    "maxTurnsPerRun": 300,
+    "dangerouslySkipPermissions": true,
+    "instructionsBundleMode": "managed",
+    "instructionsEntryFile": "AGENTS.md",
+    "promptTemplate": "PROMPT_PLACEHOLDER"
+  },
+  "runtimeConfig": {
+    "heartbeat": {
+      "enabled": false,
+      "cooldownSec": 10,
+      "wakeOnDemand": true,
+      "maxConcurrentRuns": 1
+    }
+  },
+  "sourceIssueId": "c576d963-5b72-495f-9a94-d06d2993ded0"
+}

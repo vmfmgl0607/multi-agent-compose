@@ -1,0 +1,134 @@
+schema: "paperclip/v1"
+agents:
+  ceo:
+    role: "ceo"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-opus-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+    permissions:
+      canCreateAgents: true
+  cto:
+    role: "cto"
+    icon: "code"
+    capabilities: "Leads GitHub library research and evaluation teams. Oversees technical discovery, assessment, and curation of open source projects. Manages research agents and evaluation workflows."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-opus-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  data-collector:
+    role: "researcher"
+    icon: "database"
+    capabilities: "Performs detailed analysis of GitHub repositories identified by GitHub Scout. Extracts technical specifications, analyzes code structure and dependencies, collects community engagement metrics, and prepares structured data for the evaluation team."
+    adapter:
+      config:
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  github-scout:
+    role: "researcher"
+    icon: "search"
+    capabilities: "Discovers and tracks notable GitHub libraries and open source projects. Uses GitHub APIs to identify trending repositories, monitor technology domains, and maintain a continuous discovery pipeline. Collects initial metadata for evaluation queue."
+    adapter:
+      config:
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        enabled: true
+        intervalSec: 86400
+        maxConcurrentRuns: 1
+  library-evaluator:
+    role: "researcher"
+    icon: "star"
+    capabilities: "Evaluates GitHub libraries using consistent technical criteria. Assesses code quality, architecture, documentation, and community health. Applies standardized scoring rubric covering technical quality (40%), community/maintenance (30%), security/compliance (20%), and adoption/impact (10%)."
+    adapter:
+      config:
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  operations-lead:
+    role: "general"
+    icon: "cog"
+    capabilities: "Manages operational excellence and process optimization. Analyzes errors and provides feedback. Reviews technology feasibility and provides realistic assessments. Updates workflows and company processes based on data analysis."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  qa-lead:
+    role: "qa"
+    icon: "shield"
+    capabilities: "Ensures accuracy and prevents hallucination in research outputs. Verifies library evaluations and technical assessments. Implements quality control processes and validation frameworks."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  security-lead:
+    role: "devops"
+    icon: "lock"
+    capabilities: "Leads security review and compliance. Ensures secure coding practices, vulnerability assessment, and security policy enforcement. Reviews library security posture and potential risks."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  security-reviewer:
+    role: "devops"
+    icon: "shield"
+    capabilities: "Performs security analysis of GitHub libraries. Scans for vulnerabilities, assesses dependency security, reviews license compliance, and identifies security risks. Coordinates with Security Lead for critical security findings and escalations."
+    adapter:
+      config:
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+projects:
+  onboarding:
+    color: "#6366f1"
+    status: "in_progress"
+routines:
+  weekly-github-discovery:
+    triggers:
+      -
+        kind: "schedule"
+        cronExpression: "0 9 * * 1"
+        label: "Every Monday 9 AM UTC"
+        timezone: "UTC"
+sidebar:
+  agents:
+    - "ceo"
+    - "cto"
+    - "operations-lead"
+    - "qa-lead"
+    - "security-lead"
+    - "data-collector"
+    - "github-scout"
+    - "library-evaluator"
+    - "security-reviewer"
+  projects:
+    - "onboarding"

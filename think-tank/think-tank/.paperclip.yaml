@@ -1,0 +1,456 @@
+schema: "paperclip/v1"
+agents:
+  ceo:
+    role: "ceo"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        model: "claude-opus-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+    permissions:
+      canCreateAgents: true
+  econadvocate:
+    role: "general"
+    icon: "swords"
+    capabilities: "Builds the strongest pro/affirmative case in economics debates: marshals supporting evidence from ResearchLead's multi-source packets, makes 3+ quantitative-anchored core claims per topic, and pinpoints weaknesses in the Skeptic's counterarguments. Reports to EconLead; never decides synthesis (that is the Analyst's role)."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        extraArgs:
+          - "--effort"
+          - "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  econanalyst:
+    role: "general"
+    icon: "microscope"
+    capabilities: "Runs the neutral analyst seat in economics debates. Reads EconAdvocate and EconSkeptic positions plus cross-examination rounds, evaluates argument strength and evidence quality on both sides, identifies framing biases (including source/regime bias from Western vs CCTV/TASS/Iran/Al Jazeera outlets), surfaces hidden assumptions both sides share, and produces a tentative synthesis with explicit confidence levels (high/medium/low) and an itemized list of unresolved questions. Never advocates a side. Reports to EconLead; hands final synthesis to ReportWriter via EconLead quality gate."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        extraArgs:
+          - "--effort"
+          - "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  econcollector:
+    role: "researcher"
+    icon: "sparkles"
+    capabilities: "경제팀 전문 데이터 수집 에이전트. 경제·금융·무역 관련 정량 데이터를 수집하여 EconLead에게 Evidence Packet을 납품한다. 핵심 소스: 한국은행(BOK), IMF, World Bank, OECD, 통계청, Bloomberg/FT 데이터, KITA 무역통계, 각국 중앙은행 발표. 수집 자료에 출처·날짜·신뢰도 태그를 필수 부착. EconAnalyst(분석 담당)와 역할 분리: EconCollector는 원자료 수집·정리만 담당. 한국어 우선 산출물."
+    adapter:
+      config:
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        enabled: true
+        maxConcurrentRuns: 1
+  econlead:
+    role: "general"
+    icon: "swords"
+    capabilities: "Lead the Economics debate team as middle manager and debate moderator. Define debate scope and key issues after agenda routing, run round order and turn-taking, enforce first-pass quality gate (Evidence Packet present, both opening statements submitted, Analyst conclusion has confidence + unresolved labels), and intervene first when team stalls or loops (prompt restructure, role reassignment). Escalate unresolved issues to WorkflowSupervisor. Authorized to set in_progress/blocked/reassign on own team's child issues. Produces a Moderator Note per debate."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  econskeptic:
+    role: "general"
+    icon: "swords"
+    capabilities: "Runs the red-team / skeptic seat in economics debates: hunts hidden assumptions, data limits, historical counter-examples, survivorship and extrapolation risks, and tail scenarios in EconAdvocate's case. Builds 3+ falsification-anchored counter-claims per topic with mechanisms, quantitative triggers, and the single most dangerous scenario. Reports to EconLead; never decides synthesis (that is the Analyst's role)."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        extraArgs:
+          - "--effort"
+          - "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  factvalidator:
+    role: "qa"
+    icon: "shield"
+    capabilities: "������ ���� ���� �� ��� ���� �� �ҷ���̼� ���� ���. ReportWriter�� �ѱ��� �ʾȰ� ���� Evidence Packet + QuantAnalyst Brief�� �Բ� �����Ͽ�, �ʾ� �� ��� (1) ��ġ, (2) �ι�/�����, (3) ��¥, (4) �ο빮�� ����ó�� ���������Ѵ�. ����ȭ�� Validation Report�� ���: PASS (��Ȯ), FLAG (����ġ �߰�), FAIL (���� �Ǵ� ���� �Ұ�). FLAG/FAIL �׸� ���� ��ü�� ���� ���ÿ� �Բ� ReportWriter�� ������. ��� �׸� PASS �ÿ��� ���� ���� ����. ���� �̷��� �α׷� ���� ǰ�� ����. Pipeline: ReportWriter draft �� FactValidator verification �� corrections if needed �� final distribution."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  geoadvocate:
+    role: "researcher"
+    icon: "swords"
+    capabilities: "Build the strongest possible affirmative/positive case in geopolitics debates — defends the proposition that an action, alliance, or trend is justified/beneficial. Cites evidence from ResearchLead's Evidence Packet and exposes weaknesses in the skeptic's case."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  geoanalyst:
+    role: "researcher"
+    icon: "microscope"
+    capabilities: "Neutral synthesis of geopolitics debate output. Evaluates argument strength and evidence quality on both sides, identifies framing biases, issues a tentative conclusion with explicit confidence level, and lists unresolved questions requiring further research."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  geocollector:
+    role: "researcher"
+    icon: "eye"
+    capabilities: "지정학팀 전문 데이터 수집 에이전트. 군사·안보·지정학 관련 OSINT 및 공개 데이터를 수집하여 GeoLead에게 Evidence Packet을 납품한다. 핵심 소스: SIPRI, IISS, ACLED, Jane's, OSINT(Bellingcat), 국방부 발표, NATO/CSTO 문서, 각국 국방백서. 수집 자료에 출처·날짜·신뢰도 태그를 필수 부착. GeoAnalyst(분석 담당)와 역할 분리: GeoCollector는 원자료 수집·정리만 담당. 한국어 우선 산출물."
+    adapter:
+      config:
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        enabled: true
+        maxConcurrentRuns: 1
+  geoiranalyst:
+    role: "researcher"
+    icon: "atom"
+    capabilities: "국제관계(IR) 이론 전문 분석가. 지정학팀(GeoTeam) 소속으로, 리얼리즘(현실주의), 리버럴리즘(자유주의), 구성주의(Constructivism) 등 IR 이론적 렌즈를 현재 토론 주제에 체계적으로 적용한다. 각 이론이 현상을 어떻게 설명·예측하는지 비교 분석하고, 이론 간 예측 분기점(divergence points)을 명시한다. GeoAdvocate·GeoSkeptic의 주장을 이론적 프레임으로 검증하며, GeoAnalyst의 중립 종합에 이론적 깊이를 추가한다. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  geolead:
+    role: "general"
+    icon: "globe"
+    capabilities: "Lead the Geopolitics debate team as middle manager and debate moderator. Define debate scope and key issues after agenda routing across international politics, security, conflicts, alliances, diplomacy, sanctions, energy/resource geopolitics, election interference, and hybrid warfare. Run round order and turn-taking, enforce first-pass quality gate (Evidence Packet present with multi-source coverage, both opening statements submitted, Analyst conclusion has confidence + unresolved labels), and intervene first when team stalls or loops (prompt restructure, role reassignment, scope narrowing). Escalate unresolved issues to WorkflowSupervisor. Authorized to set in_progress/blocked/reassign on own team's child issues. Produces a Moderator Note per debate. Korean-first outputs."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  geoskeptic:
+    role: "researcher"
+    icon: "flame"
+    capabilities: "Build the strongest possible negative/red-team case in geopolitics debates. Surfaces tail risks, hidden assumptions, data limitations, and historical counter-examples. Stress-tests the advocate's framing and evidence."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  histanalyst:
+    role: "researcher"
+    icon: "microscope"
+    capabilities: "역사 패턴 분석가. HistResearcher가 발굴한 1차 사료와 ResearchLead의 현대 Evidence Packet을 비교·대조하여, 현재 경제·지정학 이슈에 적용 가능한 역사적 유사 패턴(analogies)을 식별하고 분석한다. 경제 위기 선례 비교(예: 1997 아시아 금융위기 vs 현재), 분쟁·동맹 패턴 매칭(예: 냉전 동맹 구조 vs 현재 인도태평양), 정책 결과 추적(과거 유사 정책의 성공/실패 사례) 등을 수행. 분석 결과를 신뢰도와 유사도 지표 포함 Historical Analysis Brief로 작성. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  histcollector:
+    role: "researcher"
+    icon: "microscope"
+    capabilities: "역사팀 전문 데이터 수집 에이전트. 역사적 1차 사료·아카이브·학술자료를 수집하여 HistLead에게 Evidence Packet을 납품한다. 핵심 소스: 국가기록원, 외교사료관, 학술DB(JSTOR, Google Scholar), 의회기록, UN 아카이브, 역사 전문 저널. 수집 자료에 출처·날짜·신뢰도 태그를 필수 부착. HistResearcher(분석 담당)와 역할 분리: HistCollector는 원자료 수집·정리만 담당. 한국어 우선 산출물."
+    adapter:
+      config:
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  histlead:
+    role: "general"
+    icon: "telescope"
+    capabilities: "역사 분석 팀(HistTeam) 부서장 겸 토론 모더레이터. 역사적 선례·패턴 분석을 주도하며 경제팀(경제 위기 선례)과 지정학팀(분쟁·동맹 선례) 양측에 cross-cutting 역사 분석을 제공한다. HistResearcher와 HistAnalyst를 지휘하여, 1차 사료 기반 역사 연구가 현재 토론 주제에 적용되도록 조율한다. 토론 라운드에서 역사적 맥락 프레이밍, 선례 식별, 패턴 매칭을 총괄. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  histresearcher:
+    role: "researcher"
+    icon: "search"
+    capabilities: "역사 1차 사료 전문 연구원. 외교 문서, 전쟁 기록, 조약 원문, 정부 아카이브, 역사 통계 등 1차 사료를 분석하여 현재 토론 주제에 적용 가능한 역사적 선례와 패턴을 발굴한다. ResearchLead가 현대 미디어 중심이라면, HistResearcher는 역사 아카이브 전담. 발굴한 사료를 구조화된 Historical Evidence Packet으로 정리하여 HistLead와 HistAnalyst에게 전달한다. 출처·시대·맥락 명시 필수. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  opslead:
+    role: "general"
+    icon: "cog"
+    capabilities: "THI 경영지원부서 부서장. (1) 워크플로우 효율성 분석을 주도하고, (2) 이사회가 제기한 요구사항이 큐에 들어가기 전 현실성 피드백을 제공하며, (3) Telemetry/Workflow 분석가를 지휘하여 원시 운영 데이터를 보드급 권고안으로 변환한다. CEO에게 주간 운영 리포트를 제출한다."
+    adapter:
+      config:
+        effort: "medium"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  poladvocate:
+    role: "researcher"
+    icon: "swords"
+    capabilities: "정치 분석 토론 찬성론자(Advocate). 정치 토론에서 가장 강력한 찬성/긍정 사례를 구축한다. 정책 결정, 선거 결과, 거버넌스 변화가 정당화되거나 유익하다는 주장을 Evidence Packet 기반으로 전개하며, 3개 이상의 정량적·정성적 핵심 논거를 제시한다. PolSkeptic의 반론 약점을 지적하고, ResearchLead의 Evidence Packet에서 근거를 인용한다. PolLead에게 보고하며, 종합 판단은 PolAnalyst 소관. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  polanalyst:
+    role: "researcher"
+    icon: "microscope"
+    capabilities: "정치 분석 토론 중립 분석가(Synthesizer). PolAdvocate와 PolSkeptic의 주장 및 교차검증 라운드를 검토하여 양측 논거 강도와 근거 품질을 평가한다. 프레이밍 편향(출처/정권/이념 편향 포함)을 식별하고, 양측이 공유하는 숨겨진 가정을 표면화하며, 명시적 신뢰도(고/중/저)와 미해결 질문 목록이 포함된 잠정 종합 결론을 작성한다. 어느 편도 옹호하지 않는다. PolLead에게 보고하며, 최종 종합을 PolLead 품질 게이트를 거쳐 ReportWriter에 전달. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  polcollector:
+    role: "researcher"
+    icon: "search"
+    capabilities: "정치팀 전문 데이터 수집 에이전트. 선거·여론·입법 관련 데이터를 수집하여 PolLead에게 Evidence Packet을 납품한다. 핵심 소스: 중앙선관위, Gallup Korea, 한국리서치, 국회의안정보시스템, 정당 정책자료, V-Dem, IDEA, 각국 선거관리위원회. 수집 자료에 출처·날짜·신뢰도 태그를 필수 부착. PolAnalyst(분석 담당)와 역할 분리: PolCollector는 원자료 수집·정리만 담당. 한국어 우선 산출물."
+    adapter:
+      config:
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        enabled: true
+        maxConcurrentRuns: 1
+  pollead:
+    role: "general"
+    icon: "target"
+    capabilities: "정치 분석 팀(PolTeam) 부서장 겸 토론 모더레이터. 국내 정치, 선거 분석, 거버넌스, 정치경제 토론을 주도한다. PolAdvocate·PolSkeptic·PolAnalyst를 지휘하여 구조화된 정치 토론을 운영하고, 토론 범위 설정, 라운드 관리, 품질 게이트(Evidence Packet 확인, 양측 개진문 제출, Analyst 결론 신뢰도 표기) 적용을 담당한다. 한반도·미중·유럽 정세에서 국내 정치 변수 분석에 특화. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  polskeptic:
+    role: "researcher"
+    icon: "flame"
+    capabilities: "정치 분석 토론 회의론자(Red Team). 정치 토론에서 가장 강력한 반대/비판 사례를 구축한다. 숨겨진 가정, 데이터 한계, 역사적 반례, 생존자 편향, 외삽 리스크, 꼬리 시나리오를 발굴하여 PolAdvocate의 주장을 스트레스 테스트한다. 3개 이상의 반증 기반 반론과 가장 위험한 단일 시나리오를 제시한다. PolLead에게 보고하며, 종합 판단은 PolAnalyst 소관. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  quantanalyst:
+    role: "researcher"
+    icon: "database"
+    capabilities: "Receives evidence packets from ResearchLead and confidence-labeled data from EconAnalyst/GeoAnalyst. Extracts all numerical data points (GDP, trade volumes, military figures, demographic stats, etc.) and structures them into formatted markdown tables with source, date, and confidence-level columns. Identifies data gaps and flags where figures are missing or contradictory. Delivers a structured Quantitative Data Brief to ReportWriter for each report. Never generates or estimates numbers not present in source evidence."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  reportwriter:
+    role: "general"
+    icon: "file-code"
+    capabilities: "Author final Korean-language think tank reports from debate output. Owns UTF-8 encoding integrity, citation footnotes, source bias annotation, and the standard report structure (summary > issues > pro/con arguments > neutral analysis > conclusion > sources). REQUIRED: Every report MUST include a Key Metrics Summary Table (5-10 indicators with source/date), inline statistics with [Source, Date] footnotes, full data traceability to Evidence Packets, and exact number matching without rounding or paraphrasing."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        extraArgs:
+          - "--effort"
+          - "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  researchlead:
+    role: "researcher"
+    icon: "telescope"
+    capabilities: "크로스도메인 미디어 분석 & 수집 조율자. 서방 미디어(Reuters/FT/WSJ/Bloomberg/Economist/BBC)와 비서방 미디어(Al Jazeera/Press TV/IRNA/CCTV/Xinhua/Global Times/TASS/RT/Kommersant) 간 편향 비교·태깅을 전담한다. 단일 팀 Collector로 커버 불가한 복합 주제(경제+지정학+안보 등 크로스도메인 토픽) 발생 시 통합 Evidence Packet을 생성한다. 경제 정량 데이터(IMF/WB/Bloomberg/중앙은행)는 EconCollector로 이관 완료 — ResearchLead는 미디어 편향 분석과 크로스도메인 조율에 집중한다. REQUIRED: 모든 Evidence Packet에 출처·날짜·편향도(서방/비서방/중립) 태그 필수. 수치 데이터는 원출처 그대로 인용, 추정·조작 금지. 한국어 우선 산출물."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        effort: "high"
+        extraArgs:
+          - "--effort"
+          - "medium"
+        maxTurnsPerRun: 400
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  telemetryanalyst:
+    role: "researcher"
+    icon: "radar"
+    capabilities: "THI 운영 텔레메트리 담당. 에이전트 워크플로우 로그/실행 이력/패턴을 수집·분석하여 병목, 재시도 폭주, 예산 과지출 구간을 OpsLead에게 보고한다. 운영 지표 대시보드 및 정기 워크플로우 패턴 리포트를 소유한다. (승인 후 OpsLead 산하로 재편 예정)"
+    adapter:
+      config:
+        effort: "medium"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  workflowanalyst:
+    role: "pm"
+    icon: "telescope"
+    capabilities: "THI 요구사항·워크플로우 현실성 검토 담당. 이사회가 제기한 요구가 에이전트 큐에 진입하기 전, 실행 가능성·범위 명확성·기존 워크플로우와의 충돌을 사전 평가하고 구조화된 피드백(명확화 질문/리스크/대안)을 OpsLead·CEO에게 제출한다. (승인 후 OpsLead 산하로 재편 예정)"
+    adapter:
+      config:
+        effort: "high"
+        maxTurnsPerRun: 300
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+  workflowsupervisor:
+    role: "qa"
+    icon: "shield"
+    capabilities: "Enforce hard caps on debate rounds, token/cost budgets, and agent response times across the think tank. Detect semantic loops, force-terminate stuck debates, reassign or block dependent issues, and escalate to CEO when limits are exceeded."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        extraArgs:
+          - "--effort"
+          - "low"
+        maxTurnsPerRun: 200
+        model: "claude-haiku-4-5-20251001"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        maxConcurrentRuns: 1
+projects:
+  onboarding:
+    color: "#6366f1"
+    status: "in_progress"
+sidebar:
+  agents:
+    - "ceo"
+    - "econlead"
+    - "factvalidator"
+    - "geolead"
+    - "histlead"
+    - "opslead"
+    - "pollead"
+    - "quantanalyst"
+    - "reportwriter"
+    - "researchlead"
+    - "workflowsupervisor"
+    - "econadvocate"
+    - "econanalyst"
+    - "econcollector"
+    - "econskeptic"
+    - "geoadvocate"
+    - "geoanalyst"
+    - "geocollector"
+    - "geoiranalyst"
+    - "geoskeptic"
+    - "histanalyst"
+    - "histcollector"
+    - "histresearcher"
+    - "telemetryanalyst"
+    - "workflowanalyst"
+    - "poladvocate"
+    - "polanalyst"
+    - "polcollector"
+    - "polskeptic"
+  projects:
+    - "onboarding"

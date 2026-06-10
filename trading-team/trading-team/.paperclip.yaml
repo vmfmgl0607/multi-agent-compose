@@ -1,0 +1,77 @@
+schema: "paperclip/v1"
+agents:
+  backtest-engineer:
+    role: "engineer"
+    icon: "microscope"
+    capabilities: "Owns historical backtesting harness and correctness validation for the AI Hedge Fund. Builds property-based and golden-file tests around the deterministic math modules (Owner Earnings, 3-stage DCF, NCAV, volatility-adjusted limits, correlation multipliers), runs the LangGraph engine against historical windows, and certifies trade-order outputs before any live/paper loop."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+  ceo:
+    role: "ceo"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+    permissions:
+      canCreateAgents: true
+  cto:
+    role: "cto"
+    icon: "crown"
+    capabilities: "Owns technical roadmap, LangGraph DAG architecture, the deterministic safety sandbox, core quant math modules, data pipeline, and engineering execution. Hands-on founding engineer; grows and leads the eng team."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+  data-engineer:
+    role: "engineer"
+    icon: "database"
+    capabilities: "Owns data ingestion and pipeline integrity for the AI Hedge Fund. Builds and maintains the api.financialdatasets.ai client wrappers, local cache layer, 429 linear backoff, TTM normalization, and rate-limit-resilient batch fetchers feeding the LangGraph analyst nodes. Read-only; never moves capital."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+  devops-engineer:
+    role: "engineer"
+    icon: "cog"
+    capabilities: "Owns deploy, runtime, and observability for the AI Hedge Fund. Builds CI, repeatable deployments, secrets handling, structured logging, run-tracing for the LangGraph engine, and the operational safeguards required to run the deterministic-sandbox + portfolio-manager loop against paper or live capital."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+  quant-engineer:
+    role: "engineer"
+    icon: "atom"
+    capabilities: "Quant-finance + Python IC engineer reporting to the CTO. Implements investor-persona analyst nodes (deterministic financial math + unit tests) into the LangGraph engine's ANALYST_NODES extension point. Read-only by contract; never moves capital."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+projects:
+  onboarding:
+    color: "#6366f1"
+    status: "in_progress"
+sidebar:
+  agents:
+    - "ceo"
+    - "cto"
+    - "backtest-engineer"
+    - "data-engineer"
+    - "devops-engineer"
+    - "quant-engineer"
+  projects:
+    - "onboarding"

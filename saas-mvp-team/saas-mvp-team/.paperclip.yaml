@@ -1,0 +1,126 @@
+schema: "paperclip/v1"
+agents:
+  backenddev:
+    role: "engineer"
+    icon: "database"
+    capabilities: "Implements backend services, REST/GraphQL APIs, data models, persistence, and infrastructure for the SaaS MVP."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+  ceo:
+    role: "ceo"
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+    permissions:
+      canCreateAgents: true
+  cto:
+    role: "cto"
+    icon: "crown"
+    capabilities: "Owns technical architecture and engineering execution for the SaaS MVP. Breaks down PRDs into engineering tasks, manages frontend/backend/QA/security agents, makes tech-stack decisions, and sets up project workspaces."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+  frontenddev:
+    role: "engineer"
+    icon: "code"
+    capabilities: "Implements UI features, the component library, and API integration based on PRDs and design specs from PM and UXDesigner."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-5-20250929"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+  pm:
+    role: "pm"
+    icon: "target"
+    capabilities: "Translates founder vision into PRDs and acceptance criteria. Maintains the product backlog, runs requirements interviews with the board, and verifies that shipped work meets the documented requirements."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+  qaengineer:
+    role: "qa"
+    icon: "bug"
+    capabilities: "Designs test plans, executes regression and acceptance tests, triages production errors and stack traces, files reproducible bug reports, and verifies feature correctness against PRDs."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+  secreview:
+    role: "engineer"
+    icon: "shield"
+    capabilities: "Reviews code and infrastructure for security risks, performs threat modeling on new features, audits dependencies and secrets handling, and tracks vulnerabilities through remediation."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+        model: "claude-sonnet-4-6"
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+  skillmanualarchitect:
+    role: "general"
+    icon: "file-code"
+    capabilities: "Designs and authors role-specific skill.md / work-manual files for every agent in the company. Standardizes format, voice, and operational depth. Codifies each role's responsibilities into actionable runbooks tailored to our SaaS MVP delivery flow."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+  uxdesigner:
+    role: "designer"
+    icon: "sparkles"
+    capabilities: "Owns user flows, wireframes, and the design system for the SaaS MVP. Hands off design specs to the frontend engineer and validates UX with the PM and board."
+    adapter:
+      config:
+        dangerouslySkipPermissions: true
+      type: "claude_local"
+    runtime:
+      heartbeat:
+        intervalSec: 300
+        maxConcurrentRuns: 1
+projects:
+  onboarding:
+    color: "#6366f1"
+    status: "in_progress"
+sidebar:
+  agents:
+    - "ceo"
+    - "cto"
+    - "pm"
+    - "skillmanualarchitect"
+    - "uxdesigner"
+    - "backenddev"
+    - "frontenddev"
+    - "qaengineer"
+    - "secreview"
+  projects:
+    - "onboarding"
